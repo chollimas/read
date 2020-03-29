@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.book.store.mapper.TbBookMapper" >
+  <resultMap id="BaseResultMap" type="com.book.store.model.TbBook" >
+    <id column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="pub_date" property="pubDate" jdbcType="VARCHAR" />
+    <result column="origin_title" property="originTitle" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="tags" property="tags" jdbcType="VARCHAR" />
+    <result column="binding" property="binding" jdbcType="VARCHAR" />
+    <result column="translator" property="translator" jdbcType="VARCHAR" />
+    <result column="catalog" property="catalog" jdbcType="VARCHAR" />
+    <result column="pages" property="pages" jdbcType="INTEGER" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="isbn10" property="isbn10" jdbcType="VARCHAR" />
+    <result column="isbn13" property="isbn13" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="alt_title" property="altTitle" jdbcType="VARCHAR" />
+    <result column="author_intro" property="authorIntro" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    book_id, title, sub_title, author, pub_date, origin_title, image, tags, binding, 
+    translator, catalog, pages, publisher, isbn10, isbn13, path, url, alt_title, author_intro, 
+    summary, price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.book.store.model.TbBookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_book
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_book
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.store.model.TbBookExample" >
+    delete from tb_book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.store.model.TbBook" >
+    insert into tb_book (book_id, title, sub_title, 
+      author, pub_date, origin_title, 
+      image, tags, binding, 
+      translator, catalog, pages, 
+      publisher, isbn10, isbn13, 
+      path, url, alt_title, 
+      author_intro, summary, price
+      )
+    values (#{bookId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{subTitle,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{pubDate,jdbcType=VARCHAR}, #{originTitle,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{binding,jdbcType=VARCHAR}, 
+      #{translator,jdbcType=VARCHAR}, #{catalog,jdbcType=VARCHAR}, #{pages,jdbcType=INTEGER}, 
+      #{publisher,jdbcType=VARCHAR}, #{isbn10,jdbcType=VARCHAR}, #{isbn13,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{altTitle,jdbcType=VARCHAR}, 
+      #{authorIntro,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.store.model.TbBook" >
+    insert into tb_book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="subTitle != null" >
+        sub_title,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="pubDate != null" >
+        pub_date,
+      </if>
+      <if test="originTitle != null" >
+        origin_title,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="tags != null" >
+        tags,
+      </if>
+      <if test="binding != null" >
+        binding,
+      </if>
+      <if test="translator != null" >
+        translator,
+      </if>
+      <if test="catalog != null" >
+        catalog,
+      </if>
+      <if test="pages != null" >
+        pages,
+      </if>
+      <if test="publisher != null" >
+        publisher,
+      </if>
+      <if test="isbn10 != null" >
+        isbn10,
+      </if>
+      <if test="isbn13 != null" >
+        isbn13,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="altTitle != null" >
+        alt_title,
+      </if>
+      <if test="authorIntro != null" >
+        author_intro,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null" >
+        #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="pubDate != null" >
+        #{pubDate,jdbcType=VARCHAR},
+      </if>
+      <if test="originTitle != null" >
+        #{originTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="binding != null" >
+        #{binding,jdbcType=VARCHAR},
+      </if>
+      <if test="translator != null" >
+        #{translator,jdbcType=VARCHAR},
+      </if>
+      <if test="catalog != null" >
+        #{catalog,jdbcType=VARCHAR},
+      </if>
+      <if test="pages != null" >
+        #{pages,jdbcType=INTEGER},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn10 != null" >
+        #{isbn10,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn13 != null" >
+        #{isbn13,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="altTitle != null" >
+        #{altTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="authorIntro != null" >
+        #{authorIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.store.model.TbBookExample" resultType="java.lang.Integer" >
+    select count(*) from tb_book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_book
+    <set >
+      <if test="record.bookId != null" >
+        book_id = #{record.bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subTitle != null" >
+        sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pubDate != null" >
+        pub_date = #{record.pubDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originTitle != null" >
+        origin_title = #{record.originTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tags != null" >
+        tags = #{record.tags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.binding != null" >
+        binding = #{record.binding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.translator != null" >
+        translator = #{record.translator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.catalog != null" >
+        catalog = #{record.catalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pages != null" >
+        pages = #{record.pages,jdbcType=INTEGER},
+      </if>
+      <if test="record.publisher != null" >
+        publisher = #{record.publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isbn10 != null" >
+        isbn10 = #{record.isbn10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isbn13 != null" >
+        isbn13 = #{record.isbn13,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null" >
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.altTitle != null" >
+        alt_title = #{record.altTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorIntro != null" >
+        author_intro = #{record.authorIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_book
+    set book_id = #{record.bookId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      pub_date = #{record.pubDate,jdbcType=VARCHAR},
+      origin_title = #{record.originTitle,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
+      tags = #{record.tags,jdbcType=VARCHAR},
+      binding = #{record.binding,jdbcType=VARCHAR},
+      translator = #{record.translator,jdbcType=VARCHAR},
+      catalog = #{record.catalog,jdbcType=VARCHAR},
+      pages = #{record.pages,jdbcType=INTEGER},
+      publisher = #{record.publisher,jdbcType=VARCHAR},
+      isbn10 = #{record.isbn10,jdbcType=VARCHAR},
+      isbn13 = #{record.isbn13,jdbcType=VARCHAR},
+      path = #{record.path,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      alt_title = #{record.altTitle,jdbcType=VARCHAR},
+      author_intro = #{record.authorIntro,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.store.model.TbBook" >
+    update tb_book
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null" >
+        sub_title = #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="pubDate != null" >
+        pub_date = #{pubDate,jdbcType=VARCHAR},
+      </if>
+      <if test="originTitle != null" >
+        origin_title = #{originTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="binding != null" >
+        binding = #{binding,jdbcType=VARCHAR},
+      </if>
+      <if test="translator != null" >
+        translator = #{translator,jdbcType=VARCHAR},
+      </if>
+      <if test="catalog != null" >
+        catalog = #{catalog,jdbcType=VARCHAR},
+      </if>
+      <if test="pages != null" >
+        pages = #{pages,jdbcType=INTEGER},
+      </if>
+      <if test="publisher != null" >
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn10 != null" >
+        isbn10 = #{isbn10,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn13 != null" >
+        isbn13 = #{isbn13,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="altTitle != null" >
+        alt_title = #{altTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="authorIntro != null" >
+        author_intro = #{authorIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.store.model.TbBook" >
+    update tb_book
+    set title = #{title,jdbcType=VARCHAR},
+      sub_title = #{subTitle,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      pub_date = #{pubDate,jdbcType=VARCHAR},
+      origin_title = #{originTitle,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      binding = #{binding,jdbcType=VARCHAR},
+      translator = #{translator,jdbcType=VARCHAR},
+      catalog = #{catalog,jdbcType=VARCHAR},
+      pages = #{pages,jdbcType=INTEGER},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      isbn10 = #{isbn10,jdbcType=VARCHAR},
+      isbn13 = #{isbn13,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      alt_title = #{altTitle,jdbcType=VARCHAR},
+      author_intro = #{authorIntro,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR}
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </update>
+</mapper>
