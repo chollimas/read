@@ -27,6 +27,10 @@ public class BookReadServiceImpl implements BookReadService {
 	public Map<String, Object> readPosition(Map<String, Object> context) {
 		Map<String, Object> result = null;
 		String fileName = getFileName(context);
+		if (null == fileName) {
+			return result;
+		}
+
 		long offset = (long) context.get("currentPosition");
 		try {
 			result = FileUtil.readFile(fileName, (int) offset, (int) context.get("pageSize"),

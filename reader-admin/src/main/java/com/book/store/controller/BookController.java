@@ -90,13 +90,15 @@ public class BookController {
 		}
 		Map<String, Object> data;
 		data = bookReadService.readPosition(context);
-		ReadPositionOutBean readPositionOutBean = null;
+		ReadPositionOutBean readPositionOutBean = new ReadPositionOutBean();
 		try {
-			readPositionOutBean = BeanMapUtil.mapToBean(data, ReadPositionOutBean.class);
+			if (null != data) {
+				readPositionOutBean = BeanMapUtil.mapToBean(data, ReadPositionOutBean.class);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//System.out.println(readPositionOutBean);
+		// System.out.println(readPositionOutBean);
 		return CommonResult.success(readPositionOutBean);
 	}
 }
