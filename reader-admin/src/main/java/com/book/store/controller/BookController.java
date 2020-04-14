@@ -80,7 +80,6 @@ public class BookController {
 	@RequestMapping(value = "/readposition", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<ReadPositionOutBean> readposition(@RequestBody ReadPositionInBean positionBean) {
-		System.out.println(positionBean);
 		Map<String, Object> context = null;
 		try {
 			context = BeanMapUtil.beanToMap(positionBean);

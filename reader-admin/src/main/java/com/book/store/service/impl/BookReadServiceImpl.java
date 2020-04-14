@@ -19,9 +19,8 @@ import com.book.store.util.FileUtil;
 @Service
 public class BookReadServiceImpl implements BookReadService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BookReadService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BookReadService.class);
 
-	
 	@Autowired
 	TbBookMapper bookMapper;
 	@Autowired
@@ -32,6 +31,7 @@ public class BookReadServiceImpl implements BookReadService {
 		Map<String, Object> result = null;
 		String fileName = getFileName(context);
 		if (null == fileName) {
+			LOG.error("fileName is empty.");
 			return result;
 		}
 
@@ -39,6 +39,9 @@ public class BookReadServiceImpl implements BookReadService {
 		try {
 			result = FileUtil.readFile(fileName, (int) offset, (int) context.get("pageSize"),
 					(int) context.get("isNext"));
+			if (result.isEmpty()) {
+				return result;
+			}
 			recordRead((String) context.get("bookId"), (String) context.get("openid"),
 					String.valueOf(result.get("currentPosition")));
 		} catch (IOException e) {
