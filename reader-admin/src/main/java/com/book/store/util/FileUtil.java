@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 
  * @ClassName: FileUtil
@@ -16,6 +19,7 @@ import java.util.Map;
  * @date: 2020年1月4日 上午7:18:37
  */
 public class FileUtil {
+	private static final Logger LOG = LoggerFactory.getLogger(FileUtil.class);
 
 	/**
 	 * 
@@ -34,7 +38,7 @@ public class FileUtil {
 		File f = new File(fileName);
 		long size = 0;
 		if (!f.exists()) {
-			System.out.println(fileName + " is not exists.");
+			LOG.error(fileName + " is not exists.");
 			return result;
 		}
 		size = f.length();
