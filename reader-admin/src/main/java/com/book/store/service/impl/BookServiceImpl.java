@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.book.store.dto.BookDetailOutBean;
 import com.book.store.dto.BookListQueryInBean;
 import com.book.store.mapper.TbBookMapper;
 import com.book.store.model.TbBook;
@@ -61,22 +62,22 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Map<String, Object> bookDetail(String bookId) {
-		Map<String, Object> map = new HashMap<String, Object>(8);
+	public BookDetailOutBean bookDetail(String bookId) {
 		TbBook book = bookMapper.selectByPrimaryKey(bookId);
+		BookDetailOutBean out = new BookDetailOutBean();
 		if (null != book) {
-			map.put("title", book.getTitle());
-			map.put("subTitle", book.getSubTitle());
-			map.put("author", book.getAuthor());
-			map.put("pubDate", book.getPubDate());
-			map.put("originTitle", book.getOriginTitle());
-			map.put("authorIntro", book.getAuthorIntro());
-			map.put("summary", book.getSummary());
-			map.put("bookId", book.getBookId());
-			map.put("image", book.getImage());
-			map.put("publisher", book.getPublisher());
+			out.setTitle(book.getTitle());
+			out.setSubTitle(book.getSubTitle());
+			out.setAuthor(book.getAuthor());
+			out.setPubDate(book.getPubDate());
+			out.setOriginTitle(book.getOriginTitle());
+			out.setAuthorIntro(book.getAuthorIntro());
+			out.setSummary(book.getSummary());
+			out.setBookId(book.getBookId());
+			out.setImage(book.getImage());
+			out.setPublisher(book.getPublisher());
 		}
-		return map;
+		return out;
 	}
 
 	@Override

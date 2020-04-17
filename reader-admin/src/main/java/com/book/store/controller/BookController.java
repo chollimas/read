@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.book.store.common.CommonPage;
 import com.book.store.common.CommonResult;
+import com.book.store.dto.BookDetailOutBean;
 import com.book.store.dto.BookListQueryInBean;
 import com.book.store.dto.InsertBookInBean;
 import com.book.store.dto.ReadPositionInBean;
@@ -46,10 +47,10 @@ public class BookController {
 	@ApiOperation("book详情")
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Map<String, Object>> bookDetail(
+	public CommonResult<BookDetailOutBean> bookDetail(
 			@RequestParam(value = "bookId", required = true) String bookId) {
-		Map<String, Object> book = bookService.bookDetail(bookId);
-		return CommonResult.success(book);
+		BookDetailOutBean out = bookService.bookDetail(bookId);
+		return CommonResult.success(out);
 	}
 
 	@ApiOperation("book新增")
