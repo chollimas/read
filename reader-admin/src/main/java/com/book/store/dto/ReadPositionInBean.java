@@ -21,8 +21,8 @@ public class ReadPositionInBean {
 	@NotEmpty(message = "是否下一页不能为空")
 	private int isNext;
 
-	@ApiModelProperty(value = "是否下一页", required = true, example = "true")
-	@NotEmpty(message = "是否下一页不能为空")
+	@ApiModelProperty(value = "用户ID", required = true, example = "true")
+	@NotEmpty(message = "用户ID")
 	private String openid;
 
 	public String getBookId() {

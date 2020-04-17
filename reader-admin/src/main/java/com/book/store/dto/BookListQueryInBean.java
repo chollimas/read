@@ -7,6 +7,10 @@ public class BookListQueryInBean {
 	private Integer pageNum;
 	@ApiModelProperty(name = "pageSize", value = "每页大小", dataType = "Integer", example = "10")
 	private Integer pageSize;
+	@ApiModelProperty(name = "title", value = "标题", dataType = "String", example = "活着")
+	private String title;
+	@ApiModelProperty(name = "author", value = "作者", dataType = "String", example = "余华")
+	private String author;
 
 	public Integer getPageNum() {
 		return pageNum;
@@ -24,9 +28,25 @@ public class BookListQueryInBean {
 		this.pageSize = pageSize;
 	}
 
-	@Override
-	public String toString() {
-		return "GetPostListInBean [pageNum=" + pageNum + ", pageSize=" + pageSize + "]";
+	public String getTitle() {
+		return title;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	@Override
+	public String toString() {
+		return "BookListQueryInBean [pageNum=" + pageNum + ", pageSize=" + pageSize + ", title=" + title + ", author="
+				+ author + "]";
+	}
 }

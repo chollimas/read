@@ -39,8 +39,7 @@ public class BookController {
 	@ResponseBody
 	public CommonResult<CommonPage<Map<String, Object>>> getPostList(
 			@RequestBody BookListQueryInBean bookListQueryInBean) {
-		List<Map<String, Object>> postList = bookService.bookList(bookListQueryInBean.getPageNum(),
-				bookListQueryInBean.getPageSize());
+		List<Map<String, Object>> postList = bookService.bookList(bookListQueryInBean);
 		return CommonResult.success(CommonPage.restPage(postList));
 	}
 

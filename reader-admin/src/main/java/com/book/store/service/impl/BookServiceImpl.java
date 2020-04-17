@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.book.store.dto.BookListQueryInBean;
 import com.book.store.mapper.TbBookMapper;
 import com.book.store.model.TbBook;
 import com.book.store.model.TbBookExample;
+import com.book.store.model.TbBookExample.Criteria;
 import com.book.store.service.BookService;
 import com.book.store.util.BeanMapUtil;
 import com.github.pagehelper.PageHelper;
@@ -22,10 +24,26 @@ public class BookServiceImpl implements BookService {
 	TbBookMapper bookMapper;
 
 	@Override
-	public List<Map<String, Object>> bookList(Integer pageNum, Integer pageSize) {
-
+	public List<Map<String, Object>> bookList(BookListQueryInBean bookListQueryInBean) {
+		Integer pageNum = bookListQueryInBean.getPageNum();
+		if (null == pageNum) {
+			pageNum = 1;
+		}
+		Integer pageSize = bookListQueryInBean.getPageSize();
+		if (null == pageSize) {
+			pageSize = 10;
+		}
 		PageHelper.startPage(pageNum, pageSize);
 		TbBookExample postExample = new TbBookExample();
+		Criteria createCriteria = postExample.createCriteria();
+		String author = bookListQueryInBean.getAuthor();
+		if (null != author) {
+			createCriteria.andAuthorEqualTo(author);
+		}
+		String title = bookListQueryInBean.getTitle();
+		if (null != title) {
+			createCriteria.andTitleEqualTo(title);
+		}
 		List<TbBook> bookList = bookMapper.selectByExample(postExample);
 		List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
 		for (TbBook book : bookList) {
