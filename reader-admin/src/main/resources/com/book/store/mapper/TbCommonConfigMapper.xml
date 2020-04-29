@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.book.store.mapper.TbCommonConfigMapper">
+  <resultMap id="BaseResultMap" type="com.book.store.model.TbCommonConfig">
+    <id column="common_config_id" jdbcType="VARCHAR" property="commonConfigId" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="common_key" jdbcType="VARCHAR" property="commonKey" />
+    <result column="common_value" jdbcType="VARCHAR" property="commonValue" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    common_config_id, config_name, common_key, common_value, status
+  </sql>
+  <select id="selectByExample" parameterType="com.book.store.model.TbCommonConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from common_config
+    where common_config_id = #{commonConfigId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from common_config
+    where common_config_id = #{commonConfigId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.store.model.TbCommonConfigExample">
+    delete from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.store.model.TbCommonConfig">
+    insert into common_config (common_config_id, config_name, common_key, 
+      common_value, status)
+    values (#{commonConfigId,jdbcType=VARCHAR}, #{configName,jdbcType=VARCHAR}, #{commonKey,jdbcType=VARCHAR}, 
+      #{commonValue,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.store.model.TbCommonConfig">
+    insert into common_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commonConfigId != null">
+        common_config_id,
+      </if>
+      <if test="configName != null">
+        config_name,
+      </if>
+      <if test="commonKey != null">
+        common_key,
+      </if>
+      <if test="commonValue != null">
+        common_value,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commonConfigId != null">
+        #{commonConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="configName != null">
+        #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="commonKey != null">
+        #{commonKey,jdbcType=VARCHAR},
+      </if>
+      <if test="commonValue != null">
+        #{commonValue,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.store.model.TbCommonConfigExample" resultType="java.lang.Integer">
+    select count(*) from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update common_config
+    <set>
+      <if test="record.commonConfigId != null">
+        common_config_id = #{record.commonConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configName != null">
+        config_name = #{record.configName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commonKey != null">
+        common_key = #{record.commonKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commonValue != null">
+        common_value = #{record.commonValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update common_config
+    set common_config_id = #{record.commonConfigId,jdbcType=VARCHAR},
+      config_name = #{record.configName,jdbcType=VARCHAR},
+      common_key = #{record.commonKey,jdbcType=VARCHAR},
+      common_value = #{record.commonValue,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.store.model.TbCommonConfig">
+    update common_config
+    <set>
+      <if test="configName != null">
+        config_name = #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="commonKey != null">
+        common_key = #{commonKey,jdbcType=VARCHAR},
+      </if>
+      <if test="commonValue != null">
+        common_value = #{commonValue,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where common_config_id = #{commonConfigId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.store.model.TbCommonConfig">
+    update common_config
+    set config_name = #{configName,jdbcType=VARCHAR},
+      common_key = #{commonKey,jdbcType=VARCHAR},
+      common_value = #{commonValue,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where common_config_id = #{commonConfigId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.book.store.model.TbCommonConfig">
+    <id column="common_config_id" jdbcType="VARCHAR" property="commonConfigId" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="common_key" jdbcType="VARCHAR" property="commonKey" />
+    <result column="common_value" jdbcType="VARCHAR" property="commonValue" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    common_config_id, config_name, common_key, common_value, status
+  </sql>
+  <select id="selectByExample" parameterType="com.book.store.model.TbCommonConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from common_config
+    where common_config_id = #{commonConfigId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from common_config
+    where common_config_id = #{commonConfigId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.store.model.TbCommonConfigExample">
+    delete from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.store.model.TbCommonConfig">
+    insert into common_config (common_config_id, config_name, common_key, 
+      common_value, status)
+    values (#{commonConfigId,jdbcType=VARCHAR}, #{configName,jdbcType=VARCHAR}, #{commonKey,jdbcType=VARCHAR}, 
+      #{commonValue,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.store.model.TbCommonConfig">
+    insert into common_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commonConfigId != null">
+        common_config_id,
+      </if>
+      <if test="configName != null">
+        config_name,
+      </if>
+      <if test="commonKey != null">
+        common_key,
+      </if>
+      <if test="commonValue != null">
+        common_value,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commonConfigId != null">
+        #{commonConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="configName != null">
+        #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="commonKey != null">
+        #{commonKey,jdbcType=VARCHAR},
+      </if>
+      <if test="commonValue != null">
+        #{commonValue,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.store.model.TbCommonConfigExample" resultType="java.lang.Integer">
+    select count(*) from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update common_config
+    <set>
+      <if test="record.commonConfigId != null">
+        common_config_id = #{record.commonConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configName != null">
+        config_name = #{record.configName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commonKey != null">
+        common_key = #{record.commonKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commonValue != null">
+        common_value = #{record.commonValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update common_config
+    set common_config_id = #{record.commonConfigId,jdbcType=VARCHAR},
+      config_name = #{record.configName,jdbcType=VARCHAR},
+      common_key = #{record.commonKey,jdbcType=VARCHAR},
+      common_value = #{record.commonValue,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.store.model.TbCommonConfig">
+    update common_config
+    <set>
+      <if test="configName != null">
+        config_name = #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="commonKey != null">
+        common_key = #{commonKey,jdbcType=VARCHAR},
+      </if>
+      <if test="commonValue != null">
+        common_value = #{commonValue,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where common_config_id = #{commonConfigId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.store.model.TbCommonConfig">
+    update common_config
+    set config_name = #{configName,jdbcType=VARCHAR},
+      common_key = #{commonKey,jdbcType=VARCHAR},
+      common_value = #{commonValue,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where common_config_id = #{commonConfigId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.book.store.model.TbCommonConfig">
+    <id column="config_id" jdbcType="INTEGER" property="configId" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    config_id, config_name, key, value, status
+  </sql>
+  <select id="selectByExample" parameterType="com.book.store.model.TbCommonConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from common_config
+    where config_id = #{configId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_config
+    where config_id = #{configId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.store.model.TbCommonConfigExample">
+    delete from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.store.model.TbCommonConfig">
+    insert into common_config (config_id, config_name, key, 
+      value, status)
+    values (#{configId,jdbcType=INTEGER}, #{configName,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.store.model.TbCommonConfig">
+    insert into common_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="configId != null">
+        config_id,
+      </if>
+      <if test="configName != null">
+        config_name,
+      </if>
+      <if test="key != null">
+        key,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="configId != null">
+        #{configId,jdbcType=INTEGER},
+      </if>
+      <if test="configName != null">
+        #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.store.model.TbCommonConfigExample" resultType="java.lang.Integer">
+    select count(*) from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update common_config
+    <set>
+      <if test="record.configId != null">
+        config_id = #{record.configId,jdbcType=INTEGER},
+      </if>
+      <if test="record.configName != null">
+        config_name = #{record.configName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.key != null">
+        key = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update common_config
+    set config_id = #{record.configId,jdbcType=INTEGER},
+      config_name = #{record.configName,jdbcType=VARCHAR},
+      key = #{record.key,jdbcType=VARCHAR},
+      value = #{record.value,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.store.model.TbCommonConfig">
+    update common_config
+    <set>
+      <if test="configName != null">
+        config_name = #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        key = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where config_id = #{configId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.store.model.TbCommonConfig">
+    update common_config
+    set config_name = #{configName,jdbcType=VARCHAR},
+      key = #{key,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where config_id = #{configId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.book.store.model.TbCommonConfig">
+    <id column="config_id" jdbcType="INTEGER" property="configId" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    config_id, config_name, key, value, status
+  </sql>
+  <select id="selectByExample" parameterType="com.book.store.model.TbCommonConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from common_config
+    where config_id = #{configId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from common_config
+    where config_id = #{configId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.store.model.TbCommonConfigExample">
+    delete from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.store.model.TbCommonConfig">
+    insert into common_config (config_id, config_name, key, 
+      value, status)
+    values (#{configId,jdbcType=INTEGER}, #{configName,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, 
+      #{value,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.store.model.TbCommonConfig">
+    insert into common_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="configId != null">
+        config_id,
+      </if>
+      <if test="configName != null">
+        config_name,
+      </if>
+      <if test="key != null">
+        key,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="configId != null">
+        #{configId,jdbcType=INTEGER},
+      </if>
+      <if test="configName != null">
+        #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.store.model.TbCommonConfigExample" resultType="java.lang.Integer">
+    select count(*) from common_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update common_config
+    <set>
+      <if test="record.configId != null">
+        config_id = #{record.configId,jdbcType=INTEGER},
+      </if>
+      <if test="record.configName != null">
+        config_name = #{record.configName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.key != null">
+        key = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update common_config
+    set config_id = #{record.configId,jdbcType=INTEGER},
+      config_name = #{record.configName,jdbcType=VARCHAR},
+      key = #{record.key,jdbcType=VARCHAR},
+      value = #{record.value,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.store.model.TbCommonConfig">
+    update common_config
+    <set>
+      <if test="configName != null">
+        config_name = #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        key = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where config_id = #{configId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.store.model.TbCommonConfig">
+    update common_config
+    set config_name = #{configName,jdbcType=VARCHAR},
+      key = #{key,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where config_id = #{configId,jdbcType=INTEGER}
+  </update>
+</mapper>

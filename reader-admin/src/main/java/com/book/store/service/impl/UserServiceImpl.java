@@ -3,6 +3,8 @@ package com.book.store.service.impl;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -15,20 +17,23 @@ import com.book.store.dto.CodeSession;
 import com.book.store.mapper.TbUserMapper;
 import com.book.store.model.TbUser;
 import com.book.store.service.UserService;
+import com.book.store.util.CommonConfigUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 	@Autowired
 	TbUserMapper userMapper;
 
 	@Override
 	public void login(String code, String rawData, String signature) {
 		// 1.获取session_key 和 openid
-		String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + CommonConstent.APPID + "&secret="
-				+ CommonConstent.APP_SECRET + "&js_code=" + code + "&grant_type=authorization_code";
+		String appid = CommonConfigUtil.getConfigValue("APPID");
+		String appSecret = CommonConfigUtil.getConfigValue("APP_SECRET");
+		String url = CommonConstent.WX_BASE_URL + "sns/jscode2session?appid=" + appid + "&secret="
+				+ appSecret + "&js_code=" + code + "&grant_type=authorization_code";
 		CodeSession codeSession = HttpUtils.restRequest(url, HttpMethod.GET, CodeSession.class);
-		System.out.println(codeSession);
+		LOG.info("codeSession[" + codeSession + "]");
 
 		// 2.用户签名校验
 		try {
@@ -41,10 +46,10 @@ public class UserServiceImpl implements UserService {
 			}
 			String cipherData = sb.toString();
 			if (!cipherData.equals(signature)) {
-				System.out.println("signature:" + signature + "\ncipherData:" + cipherData);
+				LOG.error("signature:" + signature + "\ncipherData:" + cipherData);
 				return;
 			} else {
-				System.out.println("用户信息准确");
+				LOG.info("用户信息准确");
 			}
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
